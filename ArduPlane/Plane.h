@@ -105,6 +105,10 @@
 #include <AP_Scripting/AP_Scripting.h>
 #endif
 
+#if ENABLE_DATALOGGER == ENABLED
+#include <AP_DataLogger/AP_DataLogger.h>
+#endif
+
 #if ENABLE_FUELCELL  == ENABLED
 #include <AP_FuelCell/AP_FuelCell.h>
 #endif

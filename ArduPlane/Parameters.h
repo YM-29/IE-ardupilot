@@ -564,7 +564,11 @@ public:
     AP_Int8 crow_flap_weight_inner;
     AP_Int8 crow_flap_options;
     AP_Int8 crow_flap_aileron_matching;
-    
+
+#if ENABLE_DATALOGGER == ENABLED
+    AP_DataLogger datalogger;
+#endif
+
 #if ENABLE_FUELCELL == ENABLED
     AP_FuelCell fuelcell;
 #endif

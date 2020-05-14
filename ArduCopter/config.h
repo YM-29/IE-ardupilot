@@ -400,6 +400,12 @@
 #endif
 
 //////////////////////////////////////////////////////////////////////////////
+// Data Logger - support for logging none flight related sensores
+#ifndef ENABLE_DATALOGGER
+ # define ENABLE_DATALOGGER !HAL_MINIMIZE_FEATURES
+#endif
+
+//////////////////////////////////////////////////////////////////////////////
 // Fuel Cell - support for complex power systems
 #ifndef ENABLE_FUELCELL
  #define ENABLE_FUELCELL !HAL_MINIMIZE_FEATURES

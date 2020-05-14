@@ -19,7 +19,6 @@ AP_BattMonitor_FuelCell::AP_BattMonitor_FuelCell(AP_BattMonitor &mon,
 // read - read the voltage and current
 void AP_BattMonitor_FuelCell::read()
 {
-#if ENABLE_FUELCELL
     // get fuel cell lib pointer
     const AP_FuelCell* fuel_cell = AP_FuelCell::get_singleton();
     if (fuel_cell == nullptr) {
@@ -54,15 +53,10 @@ void AP_BattMonitor_FuelCell::read()
 
     // map consumed_wh using fixed voltage of 1
     _state.consumed_wh = _state.consumed_mah;
-#else 
-    _state.healthy = false;
-#endif
 }
 
 AP_BattMonitor::BatteryFailsafe AP_BattMonitor_FuelCell::update_failsafes()
 {
-#if ENABLE_FUELCELL
-
     AP_BattMonitor::BatteryFailsafe fuel_cell_failsafe = AP_BattMonitor::BatteryFailsafe::BatteryFailsafe_None;
 
     // only check for fuel cell failsafes on the tank moniter
@@ -76,21 +70,16 @@ AP_BattMonitor::BatteryFailsafe AP_BattMonitor_FuelCell::update_failsafes()
     }
 
     return MAX(AP_BattMonitor_Backend::update_failsafes(),fuel_cell_failsafe);
-#else
-    return AP_BattMonitor_Backend::update_failsafes();
-#endif
 }
 
 // returns false if we fail arming checks, in which case the buffer will be populated with a failure message
 bool AP_BattMonitor_FuelCell::arming_checks(char * buffer, size_t buflen) const
 {
-
     // check standard things
     if (!AP_BattMonitor_Backend::arming_checks(buffer, buflen)) {
         return false;
     }
 
-#if ENABLE_FUELCELL
     // if they pass also check fuel cell lib for arming
     const AP_FuelCell* fuel_cell = AP_FuelCell::get_singleton();
     if (fuel_cell == nullptr) {
@@ -104,7 +93,6 @@ bool AP_BattMonitor_FuelCell::arming_checks(char * buffer, size_t buflen) const
     if (_params._type == AP_BattMonitor_Params::BattMonitor_TYPE_FuelCell_TANK) {
         return fuel_cell->arming_checks(buffer, buflen);
     }
-#endif
 
     // if we got this far we are safe to arm
     return true;

@@ -123,7 +123,8 @@ public:
         SerialProtocol_WindVane = 21,
         SerialProtocol_SLCAN = 22,
         SerialProtocol_RCIN = 23,
-        SerialProtocol_FuelCell = 24,
+        SerialProtocol_Data_log = 24,
+        SerialProtocol_FuelCell = 25,
     };
 
     // get singleton instance

@@ -23,22 +23,35 @@
 #define HEALTHY_TIMEOUT_MS 5000 // time for driver to be marked un-healthy
 
 // failsafe messages
-#define TEMP_1_CRIT         "Fuel Cell: Failsafe Temp 1 critical"
-#define TEMP_2_CRIT         "Fuel Cell: Failsafe Temp 2 critical"
-#define BAT_VOLT_CRIT       "Fuel Cell: Failsafe Battery Voltage Critical"
-#define BAT_TEMP_CRIT       "Fuel Cell: Failsafe Battery Temp Critical"
-#define FAN_ERROR           "Fuel Cell: Failsafe Fan failure"
-#define FAN_ERROR2          "Fuel Cell: Failsafe Fan Over Curent"
-#define TEMP_1_SHUT         "Fuel Cell: Failsafe Temp 1 Shutdown"
-#define TEMP_2_SHUT         "Fuel Cell: Failsafe Temp 2 Shutdown"
-#define BAT_VOLT_SHUT       "Fuel Cell: Failsafe Battery Voltage Shutdown"
-#define BAT_TEMP_SHUT       "Fuel Cell: Failsafe Battery Temp Shutdown"
-#define START_TIMEOUT       "Fuel Cell: Failsafe Start Timeout"
-#define STOP_TIMEOUT        "Fuel Cell: Failsafe Stop Timeout"
-#define START_UNDER_PRESS   "Fuel Cell: Failsafe Start Under Pressue"
-#define TANK_UNDER_PRESS    "Fuel Cell: Failsafe Tank Under Pressue"
-#define TANK_LOW_PRESS      "Fuel Cell: Failsafe Tank Low Pressue"
-#define SAFETY_FLAG         "Fuel Cell: Safety Flag"
+#define TEMP_1_CRIT         "Fuel Cell: Stack temperature 1 above critical (58C) limit"
+#define TEMP_2_CRIT         "Fuel Cell: Stack temperature 2 above critical (58C) limit"
+#define BAT_VOLT_CRIT       "Fuel Cell: Battery voltage below critical (19V) limit"
+#define BAT_TEMP_CRIT       "Fuel Cell: Battery temperature above critical (65C) limit"
+#define FAN_ERROR           "Fuel Cell: Fan running and fan current below limit"
+#define FAN_ERROR2          "Fuel Cell: Fan stopped and fan current above limit"
+#define TEMP_1_SHUT         "Fuel Cell: Stack temperature 1 above shutdown (57C) limit"
+#define TEMP_2_SHUT         "Fuel Cell: Stack temperature 2 above shutdown (57C) limit"
+#define BAT_VOLT_SHUT       "Fuel Cell: Battery voltage below shutdown (19.6V) limit"
+#define BAT_TEMP_SHUT       "Fuel Cell: Battery temperature above shutdown (60C) limit"
+#define START_TIMEOUT       "Fuel Cell: Master State in Starting for unexpected length of time"
+#define STOP_TIMEOUT        "Fuel Cell: Master State in Stopping for unexpected length of time"
+#define START_UNDER_PRESS   "Fuel Cell: Tank under pressure (<6barg) for system start"
+#define TANK_UNDER_PRESS    "Fuel Cell: Tank pressure below shutdown (5barg) limit"
+#define TANK_LOW_PRESS      "Fuel Cell: Tank pressure low (<15barg)"
+#define SAFETY_FLAG         "Fuel Cell: Safety Flag, unexpected low safety line"
+#define STACK_START_UT_1    "Fuel Cell: Deny start - Stack temperature 1 below (5C) limit"
+#define STACK_START_UT_2    "Fuel Cell: Deny start - Stack temperature 2 below (5C) limit"
+#define STACK_UT_1          "Fuel Cell: Stack temperature 1 below (5C) limit"
+#define STACK_UT_2          "Fuel Cell: Stack temperature 2 below (5C) limit"
+#define BAT_UV              "Fuel Cell: Battery voltage low (<21.6V)"
+#define BAT_UV_START        "Fuel Cell: Deny start - Battery voltage low (<21.6V)"
+#define FAN_PULSE_ABORT     "Fuel Cell: Fan Pulse aborted"
+#define STACK_UV            "Fuel Cell: Stack voltage below threshold"
+#define SYS_OVERLOAD        "Fuel Cell: Stack voltage below threshold, battery at max ouput"
+#define OVOC                "Fuel Cell: Over voltage/over current safety hardware trip"
+#define INVALID_SERIAL      "Fuel Cell: Invalid serial number"
+#define BAT_CHARGER_FAULT   "Fuel Cell: Battery charger fault"
+#define BAT_UT              "Fuel Cell: Battery thermistor damaged or not connected"
 
 // statues messages
 #define STATUS_START    "Fuel Cell: Status Starting"
@@ -119,6 +132,21 @@ private:
         _FUEL_CELL_FAILSAFE_TANK_UNDER_PRESSURE     = (1 << 18),
         _FUEL_CELL_FAILSAFE_TANK_LOW_PRESSURE       = (1 << 17),
         _FUEL_CELL_FAILSAFE_SAFETY_FLAG             = (1 << 16),
+        _FUEL_CELL_FAILSAFE_STACK_START_UT_1        = (1 << 15),
+        _FUEL_CELL_FAILSAFE_STACK_START_UT_2        = (1 << 14),
+        _FUEL_CELL_FAILSAFE_STACK_UT_1              = (1 << 13),
+        _FUEL_CELL_FAILSAFE_STACK_UT_2              = (1 << 12),
+        _FUEL_CELL_FAILSAFE_BAT_UV                  = (1 << 11),
+        _FUEL_CELL_FAILSAFE_BAT_UV_START            = (1 << 10),
+        _FUEL_CELL_FAILSAFE_FAN_PULSE_ABORT         = (1 << 9),
+        _FUEL_CELL_FAILSAFE_STACK_UV                = (1 << 8),
+        _FUEL_CELL_FAILSAFE_SYS_OVERLOAD            = (1 << 7),
+        _FUEL_CELL_FAILSAFE_OVOC                    = (1 << 6),
+        _FUEL_CELL_FAILSAFE_INVALID_SERIAL          = (1 << 5),
+        _FUEL_CELL_FAILSAFE_BAT_CHARGER_FAULT       = (1 << 4),
+        _FUEL_CELL_FAILSAFE_BAT_UT                  = (1 << 3),
+
+
     };
 
     enum  FUEL_CELL_STATE {

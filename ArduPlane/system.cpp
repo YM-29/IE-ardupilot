@@ -132,6 +132,11 @@ void Plane::init_ardupilot()
     camera_mount.init();
 #endif
 
+#if ENABLE_DATALOGGER == ENABLED
+    // init datalogger library
+    g2.datalogger.init();
+#endif
+
 #if ENABLE_FUELCELL == ENABLED
     // init fuel cell library
     g2.fuelcell.init();

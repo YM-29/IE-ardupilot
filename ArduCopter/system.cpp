@@ -233,6 +233,11 @@ void Copter::init_ardupilot()
     g2.scripting.init();
 #endif // ENABLE_SCRIPTING
 
+#if ENABLE_DATALOGGER == ENABLED
+    // init datalogger library
+    g2.datalogger.init();
+#endif
+
 #if ENABLE_FUELCELL == ENABLED
     // init fuel cell library
     g2.fuelcell.init();

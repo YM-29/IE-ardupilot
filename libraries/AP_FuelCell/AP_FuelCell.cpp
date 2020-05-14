@@ -184,7 +184,7 @@ void AP_FuelCell::decode_latest_term()
 
     switch (_term_number) {
         case 1:
-            _temp_tank_pct = strtof(_term, NULL);
+            _temp_tank_pct = atof(_term);
             // out of range values
             if (_temp_tank_pct > 100.0f || _temp_tank_pct < 0.0f) {
                 _sentence_valid = false;
@@ -192,7 +192,7 @@ void AP_FuelCell::decode_latest_term()
             break;
 
         case 2:
-            _temp_battery_pct = strtof(_term, NULL);
+            _temp_battery_pct = atof(_term);
             // out of range values
             if (_temp_battery_pct > 100.0f || _temp_battery_pct < 0.0f) {
                 _sentence_valid = false;
@@ -200,7 +200,7 @@ void AP_FuelCell::decode_latest_term()
             break;
 
         case 3:
-            _temp_state = strtof(_term, NULL);
+            _temp_state = atof(_term);
             break;
 
         case 4:
@@ -249,7 +249,7 @@ bool AP_FuelCell::arming_checks(char * buffer, size_t buflen) const
         return false;
     }
 
-    // refuse for any failsafe
+    // refuse for certain failsafes
     if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_OT1) != 0) {
         strcpy(message, TEMP_1_CRIT);
         strncpy(buffer, message, buflen);
@@ -330,6 +330,47 @@ bool AP_FuelCell::arming_checks(char * buffer, size_t buflen) const
         strncpy(buffer, message, buflen);
         return false;
     }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_START_UT_1) != 0) {
+        strcpy(message, STACK_START_UT_1);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_START_UT_2) != 0) {
+        strcpy(message, STACK_START_UT_2);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_1) != 0) {
+        strcpy(message, STACK_UT_1);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_2) != 0) {
+        strcpy(message, STACK_UT_2);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV) != 0) {
+        strcpy(message, BAT_UV);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_START) != 0) {
+        strcpy(message, BAT_UV_START);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_SYS_OVERLOAD) != 0) {
+        strcpy(message, SYS_OVERLOAD);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_OVOC) != 0) {
+        strcpy(message, OVOC);
+        strncpy(buffer, message, buflen);
+        return false;
+    }
+
     return true;
 }
 
@@ -421,6 +462,45 @@ void AP_FuelCell::check_status()
         if ((_state.failsafe & _FUEL_CELL_FAILSAFE_SAFETY_FLAG) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_SAFETY_FLAG) == 0) {
             gcs().send_text(MAV_SEVERITY_ALERT, SAFETY_FLAG);
         }
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_START_UT_1) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_STACK_START_UT_1) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, STACK_START_UT_1);
+        }
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_START_UT_2) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_STACK_START_UT_2) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, STACK_START_UT_2);
+        }
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_1) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_1) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, STACK_UT_1);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_2) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_2) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, STACK_UT_2);
+        }
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_UV) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, BAT_UV);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_START) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_START) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, BAT_UV_START);
+        }
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_FAN_PULSE_ABORT) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_FAN_PULSE_ABORT) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, FAN_PULSE_ABORT);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_UV) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_STACK_UV) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, STACK_UV);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_SYS_OVERLOAD) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_SYS_OVERLOAD) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, SYS_OVERLOAD);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_OVOC) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_OVOC) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, OVOC);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_INVALID_SERIAL) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_INVALID_SERIAL) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, INVALID_SERIAL);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_CHARGER_FAULT) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_CHARGER_FAULT) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, BAT_CHARGER_FAULT);
+        }     
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UT) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_UT) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, BAT_UT);
+        }                                                                                                                                 
         _state.last_failsafe = _state.failsafe;
     }
 }

@@ -621,6 +621,10 @@ public:
     AC_Autorotation arot;
 #endif
 
+#if ENABLE_DATALOGGER == ENABLED
+    AP_DataLogger datalogger;
+#endif
+
 #if ENABLE_FUELCELL == ENABLED
     AP_FuelCell fuelcell;
 #endif
