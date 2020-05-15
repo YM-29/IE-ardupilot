@@ -43,7 +43,7 @@
 #define STACK_START_UT_2    "Fuel Cell: Deny start - Stack temperature 2 below (5C) limit"
 #define STACK_UT_1          "Fuel Cell: Stack temperature 1 below (5C) limit"
 #define STACK_UT_2          "Fuel Cell: Stack temperature 2 below (5C) limit"
-#define BAT_UV              "Fuel Cell: Battery voltage low (<21.6V)"
+#define BAT_UV_WARN         "Fuel Cell: Battery voltage low (<21.6V)"
 #define BAT_UV_START        "Fuel Cell: Deny start - Battery voltage low (<21.6V)"
 #define FAN_PULSE_ABORT     "Fuel Cell: Fan Pulse aborted"
 #define STACK_UV            "Fuel Cell: Stack voltage below threshold"
@@ -136,7 +136,7 @@ private:
         _FUEL_CELL_FAILSAFE_STACK_START_UT_2        = (1 << 14),
         _FUEL_CELL_FAILSAFE_STACK_UT_1              = (1 << 13),
         _FUEL_CELL_FAILSAFE_STACK_UT_2              = (1 << 12),
-        _FUEL_CELL_FAILSAFE_BAT_UV                  = (1 << 11),
+        _FUEL_CELL_FAILSAFE_BAT_UV_WARN             = (1 << 11),
         _FUEL_CELL_FAILSAFE_BAT_UV_START            = (1 << 10),
         _FUEL_CELL_FAILSAFE_FAN_PULSE_ABORT         = (1 << 9),
         _FUEL_CELL_FAILSAFE_STACK_UV                = (1 << 8),

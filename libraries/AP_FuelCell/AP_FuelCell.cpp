@@ -350,8 +350,8 @@ bool AP_FuelCell::arming_checks(char * buffer, size_t buflen) const
         strncpy(buffer, message, buflen);
         return false;
     }
-    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV) != 0) {
-        strcpy(message, BAT_UV);
+    if ( (_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_WARN) != 0) {
+        strcpy(message, BAT_UV_WARN);
         strncpy(buffer, message, buflen);
         return false;
     }
@@ -474,8 +474,8 @@ void AP_FuelCell::check_status()
         if ((_state.failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_2) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_STACK_UT_2) == 0) {
             gcs().send_text(MAV_SEVERITY_ALERT, STACK_UT_2);
         }
-        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_UV) == 0) {
-            gcs().send_text(MAV_SEVERITY_ALERT, BAT_UV);
+        if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_WARN) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_WARN) == 0) {
+            gcs().send_text(MAV_SEVERITY_ALERT, BAT_UV_WARN);
         }     
         if ((_state.failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_START) != 0 && (_state.last_failsafe & _FUEL_CELL_FAILSAFE_BAT_UV_START) == 0) {
             gcs().send_text(MAV_SEVERITY_ALERT, BAT_UV_START);
