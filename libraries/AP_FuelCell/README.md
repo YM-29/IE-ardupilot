@@ -20,24 +20,38 @@ Note: Failsafes will only be triggered on battery type 13 (tank pressure). As th
 Failsafe set up: 
 The are two parameters which are bit masks for what vehicle battery failsafe actions should be taken when the fuel cell reports it internal failsafes. FUELCEL_FS_LOW is a bitmask for internal fuel cell failsafes to the battery low failsafe action. FUELCEL_FS_CRIT is a bitmask to battery failsafe critical actions. Note that the apropriate failsafe action must be set with the BATT_FS_LOW_ACT and BATT_FS_CRT_ACT parameters. Below is a table of values to set the FUELCEL_FS_LOW and FUELCEL_FS_CRIT and the corresponding failsafe description. As the parameters are bitmask multiple values can be added.
 
-| Hex   | Decimal | Description |
-|-------|---------|-------------|
-|0x80000000| 2147483648 | Stack OT #1|
-|0x40000000| 1073741824 | Stack OT #2|
-|0x20000000| 536870912 | Battery UV|
-|0x10000000| 268435456 | Battery OT|
-|0x08000000| 134217728 | No Fan|
-|0x04000000| 67108864 | Fan Overrun|
-|0x02000000| 33554432 | Stack OT #1|
-|0x01000000| 16777216 | Stack OT #2|
-|0x00800000| 8388608 | Battery UV|
-|0x00400000| 4194304 | Battery OT|
-|0x00200000| 2097152 | Master Start Timeout|
-|0x00100000| 1048576 | Master Stop Timeout|
-|0x00080000| 524288 | Start Under Pressure|
-|0x00040000| 262144 | Tank Under Pressure|
-|0x00020000| 131072 | Tank Low Pressure|
-|0x00010000| 65536 | Safety Flag Before Master EN|
+| Hex   | Description |
+|-------|-------------|
+|0x80000000| Stack OT #1|
+|0x40000000| Stack OT #2|
+|0x20000000| Battery UV|
+|0x10000000| Battery OT|
+|0x08000000| No Fan|
+|0x04000000| Fan Overrun|
+|0x02000000| Stack OT #1|
+|0x01000000| Stack OT #2|
+|0x00800000| Battery UV|
+|0x00400000| Battery OT|
+|0x00200000| Master Start Timeout|
+|0x00100000| Master Stop Timeout|
+|0x00080000| Start Under Pressure|
+|0x00040000| Tank Under Pressure|
+|0x00020000| Tank Low Pressure|
+|0x00010000| Safety Flag Before Master EN|
+|0x00008000| Deny Start - Stack 1 Under-Temperature|
+|0x00004000| Deny Start - Stack 2 Under-Temperature|
+|0x00002000| Stack 1 Under-Temperature|
+|0x00001000| Stack 1 Under-Temperature|
+|0x00000800| Battery UV Warning|
+|0x00000400| Battery UV Deny Master Enable|
+|0x00000200| Fan Pulse Load Abort|
+|0x00000100| Stack Under-Voltage|
+|0x00000080| System Over-Loaded|
+|0x00000040| Over Voltage Over Current|
+|0x00000020| Invalid Serial Number|
+|0x00000010| Battery Charger Fault|
+|0x00000008| Battery UT|
+
 
 
 ##  Usage
